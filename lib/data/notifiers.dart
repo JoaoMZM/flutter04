@@ -4,4 +4,4 @@
 import 'package:flutter/material.dart';
 
 ValueNotifier<int> selectedPageNotifier = ValueNotifier(0);
-ValueNotifier<bool> darkModeNotifer = ValueNotifier(false);
+ValueNotifier<bool> darkModeNotifier = ValueNotifier(false);

@@ -4,10 +4,8 @@ import 'package:aula04/views/pages/profile_page.dart';
 import 'package:aula04/views/widgets/navbar_widget.dart';
 import 'package:flutter/material.dart';
 
-List<Widget> pages = [
-  HomePage(),
-  ProfilePage(),
-];
+List<Widget> pages = [HomePage(), ProfilePage()];
+String icon = 'Icons.light_mode';
 
 class WidgetTree extends StatelessWidget {
   const WidgetTree({super.key});
@@ -15,10 +13,28 @@ class WidgetTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('flutter mapp')),
-      body: ValueListenableBuilder(valueListenable: selectedPageNotifier, builder: (context, selectedPage, child) {
-        return pages.elementAt(selectedPage);
-      },),
+      appBar: AppBar(
+        title: Text('flutter mapp'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              darkModeNotifier.value = !darkModeNotifier.value;
+              print(darkModeNotifier.value);
+            },
+            icon: ValueListenableBuilder(valueListenable: darkModeNotifier, builder: (context, isDarkMode, child) {
+              return Icon(
+                isDarkMode ? Icons.dark_mode : Icons.light_mode,
+              );
+            })
+          ),
+        ],
+      ),
+      body: ValueListenableBuilder(
+        valueListenable: selectedPageNotifier,
+        builder: (context, selectedPage, child) {
+          return pages.elementAt(selectedPage);
+        },
+      ),
       bottomNavigationBar: NavbarWidget(),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:aula04/data/notifiers.dart';
 import 'package:aula04/views/widget_tree.dart';
-import 'package:aula04/views/widgets/brightness_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,14 +8,29 @@ void main() {
 
 String? title = 'Flutter appbar';
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      home: MyHomePage()
-      );
+    return ValueListenableBuilder(
+      valueListenable: darkModeNotifier,
+      builder: (context, isDarkMode, child) {
+        return MaterialApp(
+          theme: ThemeData(
+            brightness: darkModeNotifier.value
+                ? Brightness.dark
+                : Brightness.light,
+          ),
+          home: MyHomePage(),
+        );
+      },
+    );
   }
 }
 
